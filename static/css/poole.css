@@ -331,6 +331,11 @@ tbody tr:nth-child(odd) th {
   color: #9a9a9a;
 }
 
+.post-tags {
+  font-size: 12px !important;
+  margin-bottom: 1rem;
+}
+
 /* Related posts */
 .related {
   padding-top: 2rem;
