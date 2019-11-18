@@ -13,7 +13,23 @@
   {{- else -}}
   <title>{{ .Title }} &middot; {{ .Site.Title }}</title>
   {{- end }}
-  <meta name="description" content="{{if .IsHome}}{{ $.Site.Params.description }}{{else}}{{.Description}}{{end}}" />
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
+  {{ if and (eq .Kind "taxonomy") (eq .Type "categories")}}
+  <meta name="robots" content="noindex, follow"/>
+  {{ else }}
+  <meta name="robots" content="index, follow"/>
+  {{ end }}
+  {{ if or (eq .Kind "home") (eq .Kind "page")}}
+  {{ if isset .Params "canonical" }}
+  <link rel="canonical" href="{{ .Params.Canonical}}" />
+  {{ else }}
+  <link rel="canonical" href="{{ .Permalink}}" />
+  {{ end }}
+  {{ end }}
+  <meta property="og:title" content="{{ .Title }}" />
+  <meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}" />
+  <meta property="og:url" content="{{ .Permalink }}" />
 
   <!-- CSS -->
   <link type="text/css" rel="stylesheet" href="{{ .Site.BaseURL }}css/print.css" media="print">
