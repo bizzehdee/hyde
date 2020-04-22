@@ -14,6 +14,10 @@
   <title>{{ .Title }} &middot; {{ .Site.Title }}</title>
   {{- end }}
   <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with .Site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end }}" />
+  {{ if .Params.tags -}}<meta name="keywords" content="{{ range .Params.tags }}{{ . }},{{ end }}" />{{- end }}
+  
+  
+
   {{ if and (eq .Kind "taxonomy") (eq .Type "categories")}}
   <meta name="robots" content="noindex, follow"/>
   {{ else }}
@@ -42,15 +46,10 @@
   <script>hljs.initHighlightingOnLoad();</script>
   {{ partial "head_fonts.html" . }}
 
-  <!-- Icons -->
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/apple-touch-icon-144-precomposed.png">
-  <link rel="shortcut icon" href="/favicon.png">
-
   <!-- RSS etc -->
   {{ range .AlternativeOutputFormats -}}
     {{ printf `<link href="%s" rel="%s" type="%s" title="%s" />` .Permalink .Rel .MediaType.Type $.Site.Title | safeHTML }}
   {{ end -}}
 
   {{ partial "hook_head_end.html" . }}
-
 </head>
