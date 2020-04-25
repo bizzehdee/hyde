@@ -5,6 +5,9 @@
   {{ if .Params.series -}}
   <span class="post-info">as part of the <a href="/series/{{ lower .Params.series }}">{{ lower .Params.series }}</a> series</span>
   {{- end }}
+  {{ if .Params.author -}}<span class="post-info">by {{ range $i, $e := .Params.author }}{{ if $i }}, {{ end }}<a href="/author/{{ lower $e }}">{{ lower $e }}</a>{{ end }}</span>{{ else }}{{- end }}
+  
+  
 
   {{ if .Params.tags -}}
     <div class="post-tags">
