@@ -5,6 +5,19 @@
     {{ block "main" . -}}{{- end }}
     </main>
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script type="text/javascript" src="{{ .Site.BaseURL }}js/fresco.min.js"></script>
+    <script type="text/javascript">
+    $(function() {
+      $('main img').each(function(i, e) {
+        $(e).wrap("<a class='fresco' href='" + $(e).attr("src") +  "'></a>");
+      });
+    });
+    </script>
+      
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
     {{ template "_internal/google_analytics_async.html" . }}
   </body>
 </html>
