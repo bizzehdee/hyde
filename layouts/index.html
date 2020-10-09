@@ -1,6 +1,6 @@
 {{ define "main" -}}
 <div class="posts">
-{{ range .Site.RegularPages -}}
+{{ range (.Paginator 10).Pages -}}
 <article class="post">
   <h1 class="post-title">
     <a href="{{ .Permalink }}">{{ .Title }}</a>
@@ -19,5 +19,7 @@
   {{ end }}
 </article>
 {{- end }}
+
+{{ template "_internal/pagination.html" . }}
 </div>
 {{- end }}
