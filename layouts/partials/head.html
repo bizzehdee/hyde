@@ -4,7 +4,6 @@
   
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  {{ hugo.Generator }}
 
   <!-- Enable responsiveness on mobile devices-->
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -38,14 +37,14 @@
 
   <!-- CSS -->
   <link type="text/css" rel="stylesheet" href="{{ .Site.BaseURL }}css/print.css" media="print">
-  <link type="text/css" rel="stylesheet" href="{{ .Site.BaseURL }}css/poole.css">
-  <link type="text/css" rel="stylesheet" href="{{ .Site.BaseURL }}css/syntax.css">
-  <link type="text/css" rel="stylesheet" href="{{ .Site.BaseURL }}css/hyde.css">
-  
-  <link rel="stylesheet" type="text/css" href="{{ .Site.BaseURL }}css/fresco.css"/>
 
-  <link rel="stylesheet"
-      href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.16.2/build/styles/default.min.css">
+  {{ $poole := resources.Get "css/poole.css" }}
+  {{ $highlightjs := resources.Get "css/highlightjs.css" }}
+  {{ $hyde := resources.Get "css/hyde.css" }}
+  {{ $fresco := resources.Get "css/fresco.css" }}
+  {{ $css := slice $poole $highlightjs $hyde $fresco | resources.Concat "css/bundle.css" | minify }}
+  <link rel="stylesheet" type="text/css" href="{{ $css.RelPermalink }}"/>
+
   {{ partial "head_fonts.html" . }}
 
   <!-- RSS etc -->
