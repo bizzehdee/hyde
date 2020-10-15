@@ -8,8 +8,7 @@
 
     {{ $jquery := resources.Get "js/jquery-3.5.1.min.js" }}
     {{ $fresco := resources.Get "js/fresco.min.js" }}
-    {{ $highlight := resources.Get "js/highlight.pack.js" }}
-    {{ $js := slice $jquery $fresco $highlight | resources.Concat "js/bundle.js" | minify }}
+    {{ $js := slice $jquery $fresco  | resources.Concat "js/bundle.js" | minify }}
 
     <script type="text/javascript" src="{{ $js.RelPermalink }}"></script>
 
@@ -20,7 +19,6 @@
       });
     });
     </script>
-    <script type="text/javascript">hljs.initHighlightingOnLoad();</script>
 
     {{ template "_internal/google_analytics_async.html" . }}
   </body>
